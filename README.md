@@ -1,10 +1,8 @@
 
 # ☁️ CloudDomain
-
 CloudDomain é uma aplicação web moderna para venda de planos de hospedagem e registro de domínios. A plataforma permite cadastro de usuários, simulação de compras com múltiplos métodos de pagamento, geração de senhas seguras e verificação de disponibilidade de domínios — tudo isso com suporte multilíngue dinâmico (PT/EN).
 
 ## Funcionalidades
-
 - Cadastro e login de usuários com hash de senha (`werkzeug.security`)
 - Autenticação de credenciais ligada ao Banco de Dados
 - Simulação de compra com cartão de crédito, PIX e boleto
@@ -18,7 +16,6 @@ CloudDomain é uma aplicação web moderna para venda de planos de hospedagem e 
 - Script SQL pronto para MySQL
 
 ## Tecnologias Utilizadas
-
 ### Frontend
 - HTML5, CSS3, JavaScript
 - Templates Jinja2 (Flask)
@@ -32,39 +29,9 @@ CloudDomain é uma aplicação web moderna para venda de planos de hospedagem e 
 - Werkzeug
 
 ### Banco de Dados
-
 - MySQL (Script tabelas e inserts incluso)
 
-## Estrutura de Diretórios
-
-clouddomain/
-├── app.py
-├── querys.txt
-├── templates/
-│   ├── main.html
-│   ├── login.html
-│   ├── cadastro.html
-│   ├── compra.html
-├── static/
-│   ├── css/
-│   │   ├── main.css
-│   │   ├── login.css
-│   │   ├── cadastro.css
-│   │   └── compra.css
-│   │
-│   ├── js/
-│   │   └── scripts.js
-│   │ 
-│   └── img/
-│       ├── logo.png
-│       ├── login.png
-│       ├── cadastro.png
-│       ├── mainbanner.png
-│       ├── icon.png
-│       └── codigo de barra.jpg
-
 ## Como Executar o Projeto
-
 ### 1. Clone o repositório
 
 bash
