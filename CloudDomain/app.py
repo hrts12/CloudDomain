@@ -10,8 +10,8 @@ app.secret_key = '1234567890qwertyuiop'
 DB_CONFIG = {
     'host': '127.0.0.1',
     'database': 'clouddomain',
-    'user': 'root',
-    'password': 'F_H@ritos1253',
+    'user': 'Seu_user',
+    'password': 'Sua_senha',
     'port': 3306,
     'charset': 'utf8mb4',
     'cursorclass': pymysql.cursors.DictCursor
