@@ -1,0 +1,49 @@
+//CREATE TABLE//
+
+CREATE TABLE Usuario (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    Senha VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE Planos (
+    ID INT AUTO_INCREMENT UNIQUE,
+    Nome VARCHAR(100) NOT NULL,
+    Espaco VARCHAR(50) NOT NULL,
+    Subdominios INT NOT NULL,
+    Contas INT NOT NULL,
+    Trafego VARCHAR(50) NOT NULL,
+    C_painel BOOLEAN NOT NULL,
+    Suporte BOOLEAN NOT NULL,
+    Preco_BR DECIMAL(10, 2) NOT NULL,
+    Ativo BOOLEAN NOT NULL
+);
+
+CREATE TABLE Cliente (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    UsuarioID INT NOT NULL,
+    PlanoID INT NOT NULL,
+    Pais VARCHAR(50) NOT NULL,
+    Estado VARCHAR(50) NOT NULL,
+    Cidade VARCHAR(100) NOT NULL,
+    Telefone VARCHAR(20) NOT NULL,
+    FOREIGN KEY (UsuarioID) REFERENCES Usuario(ID),
+    FOREIGN KEY (PlanoID) REFERENCES Planos(ID)
+);
+
+CREATE TABLE Mensagens (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    Assunto TEXT NOT NULL,
+    Data DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+//INSET//
+
+INSERT INTO Planos (Nome, Espaco, Subdominios, Contas, Trafego, C_painel, Suporte, Preco_BR, Ativo)
+VALUES 
+('Básico', '5GB', 2, 10, '100GB', TRUE, TRUE, 30.00, 1),
+('Profissional', '15GB', 5, 25, '500GB', TRUE, TRUE, 60.00, 1),
+('Bussines', '50GB', 15, 50, 'Ilimitado', TRUE, TRUE, 80.00, 1);

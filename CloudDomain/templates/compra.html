@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Confirmação de Compra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="shortcut icon" href="../static/img/icon.png" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../static/css/compra.css" />
+    <script src="../static/js/scripts.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">CloudDomain</h1>
+                <button class="back-btn" onclick="window.history.back()">
+                    <span>←</span> <span id="back-text">Voltar</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="purchase-container">
+                <div class="plan-summary">
+                    <h2 id="summary-title">Resumo do Plano</h2>
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 id="plan-name">{{ plano.Nome }}</h3>
+                            <div class="plan-price">
+                                <span id="plan-price">{{ plano.Preco_BR }}</span>
+                                <span id="plan-period">/mês</span>
+                            </div>
+                        </div>
+                        <div class="plan-features">
+                            <h4 id="features-title">Recursos inclusos:</h4>
+                            <ul id="features-list">
+                                {% for recurso in recursos %}
+                                <li>{{ recurso }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="box-boleto" id="box-boleto" style="display: none;">
+                        <img src="../static/img/codigo de barra.jpg" alt="Código de Barras do Boleto" class="codigo-barras" />
+                    </div>
+
+                    <div class="box-pix" id="box-pix" style="display: none;">
+                        <h3 id="title-pix">Pix</h3>
+                        <p>felipeharitos1253@gmail.com</p>
+                    </div>
+
+                    <form class="box-cartao" id="box-cartao" style="display: none;">
+                        <h3 id="title-cartao">Dados do Cartão</h3>
+                        <div class="form-group">
+                            <label for="card-name" id="label-card-name">Nome do Portador</label>
+                            <input type="text" id="card-name" name="card-name" />
+                        </div>
+                        <div class="form-group">
+                            <label for="card-number" id="label-card-number">Número do Cartão</label>
+                            <input type="text" id="card-number" name="card-number" maxlength="19" />
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-validity" id="label-card-validity">Validade</label>
+                                <input type="text" id="card-validity" name="card-validity" placeholder="MM/AA" maxlength="5" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="card-cvc" id="label-card-cvc">CVC</label>
+                                <input type="text" id="card-cvc" name="card-cvc" maxlength="4" placeholder="123" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="customer-form">
+                    <h2 id="form-title">Dados para Faturamento</h2>
+                    <!-- Formulário de compra -->
+                    <form id="purchase-form" method="POST" action="{{ url_for('finalizar_compra') }}">
+                        <!-- Campo oculto para enviar o ID do plano -->
+                        <input type="hidden" name="plano_id" value="{{ plano.ID }}" />
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName" id="first-name-label">Nome</label>
+                                <input type="text" id="firstName" name="firstName" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName" id="last-name-label">Sobrenome</label>
+                                <input type="text" id="lastName" name="lastName" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" id="email-label">E-mail</label>
+                            <input type="email" id="email" name="email" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone" id="phone-label">Telefone</label>
+                            <input type="tel" id="phone" name="phone" required />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="country" id="country-label">País</label>
+                                <select id="country" name="country" required>
+                                    <option value="BR">Brasil</option>
+                                    <option value="US">Estados Unidos</option>
+                                    <option value="PT">Portugal</option>
+                                    <option value="ES">Espanha</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="state" id="state-label">Estado</label>
+                                <input type="text" id="state" name="state" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city" id="city-label">Cidade</label>
+                            <input type="text" id="city" name="city" required />
+                        </div>
+
+                        <div class="payment-section">
+                            <h3 id="payment-title">Método de Pagamento</h3>
+                            <div class="payment-methods">
+                                <label class="payment-method">
+                                    <input type="radio" name="payment" value="credit" />
+                                    <span class="payment-icon">💳</span>
+                                    <span id="credit-card-text">Cartão de Crédito</span>
+                                </label>
+                                <label class="payment-method">
+                                    <input type="radio" name="payment" value="pix" />
+                                    <span class="payment-icon">📱</span>
+                                    <span id="pix-text">PIX</span>
+                                </label>
+                                <label class="payment-method">
+                                    <input type="radio" name="payment" value="boleto" />
+                                    <span class="payment-icon">🧾</span>
+                                    <span id="boleto-text">Boleto</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="total-section">
+                            <div class="total-row">
+                                <span id="subtotal-label">Subtotal:</span>
+                                <span id="subtotal-value">{{ plano.Preco_BR }}</span>
+                            </div>
+                            <div class="total-row">
+                                <span id="tax-label">Impostos:</span>
+                                <span id="tax-value">R$ 0,00</span>
+                            </div>
+                            <div class="total-row total-final">
+                                <span id="total-label">Total:</span>
+                                <span id="total-value">R$ 0,00</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="purchase-btn" id="purchase-btn">
+                            <span id="purchase-btn-text">Finalizar Compra</span>
+                            <span class="btn-icon">🚀</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de confirmação -->
+    <div id="success-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="success-icon">✅</span>
+                <h2 id="success-title">Compra Realizada com Sucesso!</h2>
+            </div>
+            <div class="modal-body">
+                <p id="success-message">
+                    Seu plano foi ativado e você receberá um e-mail com os detalhes de acesso em breve.
+                </p>
+                <div class="modal-actions">
+                    <button class="btn-primary" onclick="window.location.href='../index.html'" id="back-home-btn">
+                        Voltar ao Início
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

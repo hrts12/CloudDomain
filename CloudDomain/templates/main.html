@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="../static/img/icon.png" type="image/x-icon" />
+    <title id="page-title">CloudDomain</title>
+
+    <!-- CSS Referencia -->
+    <link rel="stylesheet" href="../static/css/main.css" />
+
+    <!-- Icones/Logo -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="navbar-container">
+        <nav>
+          <div class="logo-language-container">
+            <img src="../static/img/logo.png" alt="HDC Host logo" class="logo" />
+            <select id="language" name="idiomas" class="idiom" onchange="changeLanguage()">
+              <option value="pt">PT</option>
+              <option value="en">EN</option>
+            </select>
+          </div>
+
+          <ul class="navbar-items">
+            <li><a href="#searchdomain-container" id="nav-domain">Domínio</a></li>
+            <li><a href="#pricing-container" id="nav-prices">Preços</a></li>
+            <li><a href="#contact-container" id="nav-contact">Contato</a></li>
+
+            {% if session.usuario_id %}
+              <li>
+                <form method="POST" action="{{ url_for('logout') }}" style="display:inline;">
+                  <button type="submit" class="default-btn" id="nav-logout">Sair</button>
+                </form>
+              </li>
+            {% else %}
+              <li>
+                <a href="{{ url_for('login') }}">
+                  <button class="default-btn" id="nav-login">Entrar</button>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+      </div>
+
+      <main>
+        <div class="main-banner">
+          <h1>CloudDomain</h1>
+          <p id="banner-subtitle">Os melhores serviços para projetos de todos os tamanhos!</p>
+        </div>
+
+        <!-- Serviços -->
+        <section class="services-container">
+          <ul>
+            <li>
+              <i class="fas fa-shield-alt"></i>
+              <h3 id="service-security-title">Segurança</h3>
+              <p id="service-security-desc">
+                Proteção avançada com certificados SSL, firewall e backup automático para manter seus dados sempre seguros e protegidos contra ameaças.
+              </p>
+            </li>
+            <li>
+              <i class="fas fa-rocket"></i>
+              <h3 id="service-performance-title">Performance</h3>
+              <p id="service-performance-desc">
+                Servidores de alta performance com SSD, CDN global e otimização automática para garantir velocidade máxima do seu site.
+              </p>
+            </li>
+            <li>
+              <i class="fas fa-comments"></i>
+              <h3 id="service-support-title">Suporte 24 horas</h3>
+              <p id="service-support-desc">
+                Equipe especializada disponível 24/7 para resolver qualquer problema e tirar suas dúvidas através de chat, email ou telefone.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Planos -->
+        <section class="pricing-container" id="pricing-container">
+          <h2 id="pricing-title">Planos e preços</h2>
+          <p id="pricing-subtitle">Selecione o plano que atende suas necessidades</p>
+
+          <div class="plans-container">
+            {% for plano in planos %}
+            <div class="plan {% if loop.index == 3 %}recommended{% endif %}">
+              <div class="plan-header">
+                <div class="plan-name" id="plan-{{ plano.Nome | lower }}">{{ plano.Nome }}</div>
+                <div class="price">
+                  <span class="price-currency" id="price-simbol-{{ loop.index }}">R$</span><span id="price-{{ loop.index }}">{{ plano.Preco_BR }}</span>
+                  <span class="price-period"><span id="plan-month-{{ loop.index }}">/mês</span></span>
+                </div>
+              </div>
+              <div class="plan-features">
+                <ul>
+                  <li><span id="plan-space-{{ loop.index }}">{{ plano.Espaco }} Espaço SSD</span></li>
+                  <li><span id="plan-subdomain-{{ loop.index }}">{{ plano.Subdominios }} Sub-domínios</span></li>
+                  <li><span id="plan-email-{{ loop.index }}">{{ plano.Contas }} Contas de email</span></li>
+                  <li><span id="plan-bandwidth-{{ loop.index }}">{{ plano.Trafego }} Tráfego</span></li>
+                  <li>{% if plano.C_painel %}C-panel{% else %}Sem C-panel{% endif %}</li>
+                  <li id="plan-support-{{ loop.index }}">{% if plano.Suporte %}Suporte 24 horas{% else %}Sem Suporte{% endif %}</li>
+                </ul>
+              </div>
+              <div class="plan-cta">
+                <button type="button" class= "plan-btn" onclick="redirectToPurchase('{{ plano.ID}}')">Comprar</button>
+              </div>
+              {% if loop.index == 3 %}
+              <div id="text-rec">Recomendado</div>
+              {% endif %}
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <!-- Pesquisa de domínio -->
+        <section class="searchdomain-container" id="searchdomain-container">
+          <h2 id="domain-title">Qual domínio você deseja para seu site?</h2>
+          <p id="domain-subtitle">Verifique se o seu domínio está disponível</p>
+          <form onsubmit="verificarDominio(event)">
+            <input type="text" name="domain" id="domain" placeholder="Digite seu domínio" />
+            <input type="submit" value="Procurar domínio" id="domain-search-btn" />
+            <p class="result-domain" id="resultado"></p>
+          </form>
+        </section>
+
+        <!-- Contato -->
+        <section class="contact-container" id="contact-container">
+          <h2 id="contact-title">Envie uma mensagem</h2>
+          <p id="contact-subtitle">Mande a sua mensagem, em até 4 horas um especialista entrará em contato</p>
+          <form method="POST" action="/submit_message">
+            <input type="text" name="name" id="name" placeholder="Seu nome" required />
+
+            <input type="email" name="email" id="email" placeholder="Seu e-mail" required />
+
+            <textarea
+              name="assunto"
+              id="message"
+              placeholder="Descreva o que você precisa ou seu projeto aqui..."
+              required
+            ></textarea>
+
+            <input type="submit" value="Enviar" id="contact-submit" />
+          </form>
+        </section>
+      </main>
+
+      <!-- Rodapé -->
+      <footer>
+        <p>CloudDomain @2025</p>
+      </footer>
+    </div>
+
+    <script src="../static/js/scripts.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+/* CSS */
+
+/* All */
+* {
+  font-family: "Montserrat", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: #333;
+}
+
+html,
+body {
+  height: auto;
+  min-height: 100vh;
+}
+
+html {
+  background: linear-gradient(180deg, #f11e21f8 0%, #1982f9 100%);
+}
+
+input:focus {
+  outline: none;
+}
+
+#flash-messages {
+  padding: 10px;
+  margin: 10px auto 0;
+  max-width: 600px;
+}
+
+.flash {
+  background-color: #ffdddd;
+  color: #a33;
+  border: 1px solid #a33;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: -22px;
+  font-weight: bold;
+}
+
+#register-container {
+  max-width: 900px;
+  min-height: 80vh;
+  margin: 2rem auto;
+  display: flex;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+#register-banner {
+  background: url("../img/cadastro.png");
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: saturation;
+  width: 50%;
+}
+
+#banner-layer {
+  background-color: rgba(26, 11, 122, 0.156);
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#register-banner h1 {
+  font-size: 4rem;
+  word-spacing: 50rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+#register-form {
+  background-color: #fdfdfd;
+  padding: 2rem;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+#register-form h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 2.2rem;
+}
+
+#register-form p {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control label {
+  font-weight: bold;
+  margin-bottom: 0.6rem;
+}
+
+.form-control input {
+  border: none;
+  border-bottom: 1px solid #aaa;
+  padding: 0.6rem 0;
+}
+
+#open-generate-password {
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+#open-generate-password:hover {
+  color: #0097ff;
+}
+
+#register-form #generated-password {
+  border: 1px solid #0097ff;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0.4rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+#register-form #generated-password p {
+  color: #81d340;
+  margin-bottom: 0.5rem;
+}
+
+#generate-options button,
+#copy-password {
+  background-color: #81d340;
+  color: #fff;
+  opacity: 0.8;
+  border: none;
+  border-radius: 2rem;
+  padding: 1rem 1.4rem;
+  max-width: 150px;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: 0.4s;
+}
+
+#generate-options button:hover,
+#copy-password:hover {
+  opacity: 1;
+}
+
+#register-form input[type="submit"].btn-register {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  width: 115px;
+  height: 45px;
+  color: white;
+  background-color: #4a90e2;
+  border-radius: 5px;
+  border: 2px solid #4a90e2;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  align-self: flex-end;
+}
+
+#register-form input[type="submit"].btn-register:hover {
+  color: #4a90e2;
+  background-color: white;
+  border-color: #4a90e2;
+  transform: translateY(-2px);
+}
+
+/* Comuns */
+#generate-options {
+  margin-bottom: 1rem;
+  padding: 1em;
+  border: 1px solid #ddd;
+}
+
+#generate-options .form-control {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#generate-options label {
+  font-size: 0.8rem;
+}
+
+#generate-options input[type="text"] {
+  max-width: 30px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+#generate-options button {
+  background-color: #0097ff;
+  display: block;
+  margin: 0 auto;
+}
+
+#copy-password {
+  margin: 1rem auto;
+  background-color: transparent;
+  color: #81d340;
+  border: 2px solid #81d340;
+  padding: 0.5rem 1rem;
+}
+
+#possui {
+  font-family: "Montserrat", sans-serif;
+  color: #0066cc;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
+}
